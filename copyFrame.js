@@ -26,11 +26,10 @@ function copyFrame() { //Функция контекстного меню
 
 	window.setLayout(layout) // всё что внутри вертикального виджета будет распологаться в окне
 	window.show()
-
-
+	
 }
 
-function modifyTimings(){
+function modifyTimings() {
 
 	scene.beginUndoRedoAccum("Переименование");
 
@@ -40,16 +39,16 @@ function modifyTimings(){
 	everyFrame= parseInt(this.line.text);
 	previousEntry=NaN;
 
-for (i=0;i<frame.numberOf();i++){	
+	for (i=0;i<frame.numberOf();i++){ // Цикл прохода по кадрам
 
-	entry=parseInt(column.getEntry(drawColumn,1,i));
+		entry=parseInt(column.getEntry(drawColumn,1,i));
 
-	if (entry && (!previousEntry) || ((entry-1)%everyFrame==0)){
+		if (entry && (!previousEntry) || ((entry-1)%everyFrame==0)){
 
-		previousEntry=entry;
-}
+			previousEntry=entry;
+	}
 
-		else if(entry && previousEntry!=NaN){
+		else if (entry && previousEntry!=NaN){
 
 			column.setEntry(drawColumn, 1, i, previousEntry)
 		}
