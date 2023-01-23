@@ -1,5 +1,4 @@
-function grayScaleMov(  ) { // Функция переноса в папку
-
+function grayScaleMov() { // Функция переноса в папку
 	var currentScene = scene.currentScene();
 	var currentProjectPath = scene.currentProjectPathRemapped();
 	var currentResolutionX = scene.currentResolutionX();
@@ -13,16 +12,14 @@ function grayScaleMov(  ) { // Функция переноса в папку
 	MessageLog.trace(numberOf);	
 
 	originalName=scene.currentScene();
-	movname= IsMovExists(currentScene);
+	movname = IsMovExists(currentScene);
 	tempFile = currentProjectPath + "/" + movname + ".mov";
 
 	exporter.exportToQuicktime("Display", 1, numberOf, 1, currentResolutionX, currentResolutionY, tempFile, "Display", false, 1);
-	MessageLog.trace(node.deleteNode("Top/GreyscaleNew", false,false));
-
+	MessageLog.trace(node.deleteNode("Top/GreyscaleNew", false, false));
 }
 
-function IsMovExists(newname) {
-
+function IsMovExists(newName) {
 	MessageLog.trace(node.type("Top/Composite_5"));
 	var stringForCompositeNode = "";
 	MessageLog.trace("pop: " +node.srcNode("Top/Display",0));
@@ -30,24 +27,24 @@ function IsMovExists(newname) {
 	MessageLog.trace(stringForCompositeNode);
 
 	if (node.type(stringForCompositeNode) == "COMPOSITE") {
-
-	greyScaleNode = node.add( node.parentNode(stringForCompositeNode), "GreyscaleNew", "COLOR2BW", 0, 0, 0); // Создает ноду ГрейСкейл
-	node.unlink("Top/Display", 0); // Отсоеденить Дисплей
-	node.link(stringForCompositeNode, 0, greyScaleNode, 0); // Соеденить Композит и ГрейСкейл
-	node.link(greyScaleNode, 0, "Top/Display",0); // Соеденить ГрейСкейл и Дисплей
+		
+		greyScaleNode = node.add( node.parentNode(stringForCompositeNode), "GreyscaleNew", "COLOR2BW", 0, 0, 0); // Создает ноду ГрейСкейл
+		node.unlink("Top/Display", 0); // Отсоеденить Дисплей
+		node.link(stringForCompositeNode, 0, greyScaleNode, 0); // Соеденить Композит и ГрейСкейл
+		node.link(greyScaleNode, 0, "Top/Display",0); // Соеденить ГрейСкейл и Дисплей	
+	}
 	
-}
 	var i=0;
 	var file = new File( scene.currentProjectPathRemapped() + "/" + newname + ".mov");
-	var movname=newname;
+	var movName=newName;
 
 	while (true){
-		if (!file.exists){
-			return movname;
-		}
-		else{
-			movname=newname + "_" + ++ i;
-			file = new File( scene.currentProjectPathRemapped() + "/" + movname + ".mov");
+		if (!file.exists) {
+			return movName;
+		
+		} else {
+			movName=newName + "_" + ++ i;
+			file = new File( scene.currentProjectPathRemapped() + "/" + movName + ".mov");
+			}
 		}
 	}
-}
